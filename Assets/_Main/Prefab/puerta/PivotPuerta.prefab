@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2744613586772870626}
   - component: {fileID: 8685963641168254030}
   m_Layer: 6
-  m_Name: outlineMango (1)
+  m_Name: outlineMango2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 3275531468486923707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.009, y: -0.089, z: 0.49000004}
-  m_LocalScale: {x: 1.2010496, y: 1.1901661, z: 1}
+  m_LocalPosition: {x: 0.018, y: -0.231, z: 0.49000004}
+  m_LocalScale: {x: 1.3666312, y: 1.4755298, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2930672519950257987}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2930672519950257987}
   - component: {fileID: 2114812733289093698}
   m_Layer: 6
-  m_Name: mango (1)
+  m_Name: mango2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,8 +280,8 @@ Transform:
   m_GameObject: {fileID: 7619283111180807769}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0028, y: 0.155, z: 0.49}
-  m_LocalScale: {x: 1.2010496, y: 1.1803325, z: 1}
+  m_LocalPosition: {x: -0.003, y: 0.389, z: 0.49}
+  m_LocalScale: {x: 1.3853711, y: 1.6477443, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9182503227334136308}
@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 8708375976385951071}
   - component: {fileID: 131201077059355231}
   - component: {fileID: 1358843253872944884}
+  - component: {fileID: 8043791190134154537}
   m_Layer: 6
   m_Name: PivotPuerta
   m_TagString: Interact
@@ -462,15 +463,30 @@ HingeJoint2D:
   m_BreakAction: 1
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: -0.01, y: -0.0023247958}
-  m_ConnectedAnchor: {x: -5.4322114, y: -14.90608}
-  m_UseMotor: 0
+  m_ConnectedAnchor: {x: -5.4348726, y: -14.92008}
+  m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 0
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: -90
     m_UpperAngle: 90
+--- !u!114 &8043791190134154537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749775959417344266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac01b49fc7205f3418b83bb205e7ef69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlinePuerta: {fileID: 7944553640107207330}
+  outlineMango: {fileID: 7619283111180807769}
+  outlineMango1: {fileID: 3275531468486923707}
 --- !u!1 &7944553640107207330
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,8 +513,8 @@ Transform:
   m_GameObject: {fileID: 7944553640107207330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.013, z: 0}
-  m_LocalScale: {x: 1.0168635, y: 1.1972135, z: 1}
+  m_LocalPosition: {x: 0.0013, y: 0.006, z: 0}
+  m_LocalScale: {x: 1.0353708, y: 1.3706789, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2831928264197237275}
