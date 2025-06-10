@@ -59,14 +59,17 @@ public class Chest : MonoBehaviour
         {
             if (parametro == "Chest" && Input.GetKeyDown(KeyCode.E))
             {
-                
+
             }
             else if (parametro == "Pistol" && Input.GetKeyDown(KeyCode.E))
             {
                 PlayerAttackScript.pistola = true;
-                
+                PlayerAttackScript.yaTienePistola = true;
+                Destroy(gameObject);
             }
         }
     }
+
+
 
 }

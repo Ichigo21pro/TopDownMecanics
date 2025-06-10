@@ -10,6 +10,7 @@ public class PlayerAnimations : MonoBehaviour
 
 
     private bool wasAttacking = false;
+    private bool wasReloading = false;
     void Update()
     {
         // Movimiento
@@ -29,6 +30,27 @@ public class PlayerAnimations : MonoBehaviour
             wasAttacking = true;
             StartCoroutine(ResetAttackFlag());
         }
+        if (playerAttack != null && playerAttack.isAttackingPistol && !wasAttacking)
+        {
+            animator.SetTrigger("attackPistol");   // Activa la animación de ataque
+            wasAttacking = true;
+            StartCoroutine(ResetAttackFlag());
+        }
+        //Recarga
+        if (playerAttack != null)
+        {
+            if (playerAttack.isReloading && !wasReloading)
+            {
+                animator.SetTrigger("reload");
+                wasReloading = true;
+                StartCoroutine(ResetAttackFlag());
+            }
+            else if (!playerAttack.isReloading && wasReloading)
+            {
+                wasReloading = false;
+            }
+        }
+
 
 
     }
@@ -37,6 +59,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f); // Espera un poco para permitir la animación
         playerAttack.isAttacking = false;
+        playerAttack.isAttackingPistol = false;
         wasAttacking = false;
     }
 }
