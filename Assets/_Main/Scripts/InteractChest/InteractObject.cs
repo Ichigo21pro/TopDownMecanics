@@ -67,9 +67,15 @@ public class Chest : MonoBehaviour
                 PlayerAttackScript.yaTienePistola = true;
                 Destroy(gameObject);
             }
+            else if (parametro == "Cargador" && Input.GetKeyDown(KeyCode.E) && PlayerAttackScript.pistola) {
+                PlayerAttackScript.cargadores = PlayerAttackScript.cargadores+1;
+                PlayerAttackScript.TextoTMPCargadores.text = "" + PlayerAttackScript.cargadores;
+                Destroy(gameObject);
+            }
         }
+    }
     }
 
 
 
-}
+

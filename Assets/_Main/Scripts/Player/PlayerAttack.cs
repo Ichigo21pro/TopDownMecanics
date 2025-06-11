@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -27,12 +28,15 @@ public class PlayerAttack : MonoBehaviour
     public int cantidadCargador = 25;
     public int cargadores = 3;
     public bool isReloading = false;
-    public float reloadTime = 2f; // Tiempo de recarga en segundos
+    public float reloadTime = 0.35f; // Tiempo de recarga en segundos
+
+    public TMP_Text TextoTMPBalas;
+    public TMP_Text TextoTMPCargadores;
+    private bool MostrarBalas=true;
 
 
     void Start()
     {
-        
 
         if (attackRangeCollider == null)
         {
@@ -42,24 +46,34 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        if(MostrarBalas && pistola)
+        {
+            TextoTMPBalas.text = "" + balas;
+            TextoTMPCargadores.text = "" + cargadores;
+            MostrarBalas = false;
+        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (pistola)
             {
-                if (balas > 0)
+                if (!isReloading)
                 {
-                    Debug.Log("balas : "+balas+" cargadores : "+cargadores);
-                    AttackPistola();
-                    balas--;
-                }
-                else if (cargadores > 0)
-                {
-                    StartCoroutine(Reload());
-                }
-                else
-                {
-                    Debug.Log("Sin balas y sin cargadores");
+                    if (balas > 0)
+                    {
+                        AttackPistola();
+                        balas--;
+                        TextoTMPBalas.text = "" + balas;
+                        TextoTMPCargadores.text = "" + cargadores;
+                    }
+                    else if (cargadores > 0)
+                    {
+                        StartCoroutine(Reload());
+                    }
+                    else
+                    {
+                        Debug.Log("Sin balas y sin cargadores");
+                    }
                 }
             }
             else
@@ -131,8 +145,9 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator Reload()
     {
+        if (isReloading) yield break; // <- Previene múltiples llamadas simultáneas
+
         isReloading = true;
-        Debug.Log("Recargando...");
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -140,14 +155,12 @@ public class PlayerAttack : MonoBehaviour
         {
             cargadores--;
             balas = cantidadCargador;
-            Debug.Log("Recarga completa.");
-        }
-        else
-        {
-            Debug.Log("No hay cargadores.");
+            TextoTMPCargadores.text = "" + cargadores;
+            TextoTMPBalas.text = "" + balas;
         }
 
         isReloading = false;
+
     }
 
     // Collider si el tag es enemigo
