@@ -10,6 +10,7 @@ public class Chest : MonoBehaviour
     public string playerTag = "Player";       // Tag del jugador (por defecto: "Player")
     [SerializeField] private string NameOpcion = null;
     [SerializeField] PlayerAttack PlayerAttackScript;
+    [SerializeField] MoneyScript MoneyScript;
 
 
 
@@ -70,6 +71,11 @@ public class Chest : MonoBehaviour
             else if (parametro == "Cargador" && Input.GetKeyDown(KeyCode.E) && PlayerAttackScript.pistola) {
                 PlayerAttackScript.cargadores = PlayerAttackScript.cargadores+1;
                 PlayerAttackScript.TextoTMPCargadores.text = "" + PlayerAttackScript.cargadores;
+                Destroy(gameObject);
+            }
+            else if(parametro == "Money" && Input.GetKeyDown(KeyCode.E))
+            {
+                MoneyScript.Instance.AddRandomMoney();
                 Destroy(gameObject);
             }
         }

@@ -48,8 +48,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(MostrarBalas && pistola)
         {
-            TextoTMPBalas.text = "" + balas;
-            TextoTMPCargadores.text = "" + cargadores;
+            ActualizarHUD();
             MostrarBalas = false;
         }
 
@@ -63,8 +62,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         AttackPistola();
                         balas--;
-                        TextoTMPBalas.text = "" + balas;
-                        TextoTMPCargadores.text = "" + cargadores;
+                        ActualizarHUD();
                     }
                     else if (cargadores > 0)
                     {
@@ -155,13 +153,30 @@ public class PlayerAttack : MonoBehaviour
         {
             cargadores--;
             balas = cantidadCargador;
-            TextoTMPCargadores.text = "" + cargadores;
-            TextoTMPBalas.text = "" + balas;
+            ActualizarHUD();
         }
 
         isReloading = false;
 
     }
+
+
+    //actualizar HUD
+    void ActualizarHUD()
+    {
+        TextoTMPBalas.text = "" + balas;
+        TextoTMPCargadores.text = "" + cargadores;
+
+        if (balas < 11)
+        {
+            TextoTMPBalas.color = Color.red;
+        }
+        else
+        {
+            TextoTMPBalas.color = Color.white;
+        }
+    }
+
 
     // Collider si el tag es enemigo
     private void OnTriggerEnter2D(Collider2D other)
