@@ -76,7 +76,8 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-                Attack();
+                isAttacking = true; // <- Activa el flag una vez
+                
             }
         }
         if (yaTienePistola && Input.GetKeyDown(KeyCode.Alpha1))
@@ -94,10 +95,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // ataque de cuchillo
-    void Attack()
+    public void Attack()
     {
-        isAttacking = true; // <- Activa el flag una vez
-
         // Creamos una copia para evitar modificar la lista mientras la recorremos
         foreach (GameObject enemy in new List<GameObject>(enemiesInRange))
         {

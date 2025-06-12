@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1136256291886903960}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.049, y: 0.1725, z: 0}
-  m_LocalScale: {x: 1.03267, y: 0.41566333, z: 1}
+  m_LocalPosition: {x: -0.0512, y: 0.1322, z: 0}
+  m_LocalScale: {x: 0.9562993, y: 0.4111779, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9124398310682197012}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -143,8 +143,8 @@ Transform:
   m_GameObject: {fileID: 5643928473460917122}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1717, y: 0.0357, z: 0}
-  m_LocalScale: {x: 0.5912601, y: 0.6893361, z: 1}
+  m_LocalPosition: {x: 0.2217, y: -0.0143, z: 0}
+  m_LocalScale: {x: 0.41004905, y: 0.68650705, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9124398310682197012}
@@ -189,7 +189,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -229,7 +229,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3488436359326876163}
@@ -248,11 +248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d0fff3e9402724795735ebb2a495d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToShow: {fileID: 1136256291886903960}
-  triggerZone: {fileID: 0}
+  objectToShow: {fileID: 3409272197699426483}
+  triggerZone: {fileID: 3031416774726813892}
   playerTag: Player
   NameOpcion: Pistol
   PlayerAttackScript: {fileID: 0}
+  MoneyScript: {fileID: 0}
+  moneyPrefab: {fileID: 0}
+  cargadorPrefab: {fileID: 0}
 --- !u!61 &3031416774726813892
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -282,7 +285,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
