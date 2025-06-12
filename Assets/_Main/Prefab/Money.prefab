@@ -468,10 +468,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToShow: {fileID: 6731689789799266090}
-  triggerZone: {fileID: 0}
+  triggerZone: {fileID: 7157986225905073672}
   playerTag: Player
-  NameOpcion: 
+  NameOpcion: Money
   PlayerAttackScript: {fileID: 0}
+  MoneyScript: {fileID: 0}
+  moneyPrefab: {fileID: 3940013052012047511}
+  cargadorPrefab: {fileID: 0}
 --- !u!61 &7157986225905073672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -501,7 +504,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.036821246, y: 0.013808727}

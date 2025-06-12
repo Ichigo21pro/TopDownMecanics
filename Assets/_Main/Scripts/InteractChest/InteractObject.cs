@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class Chest : MonoBehaviour
 {
@@ -17,6 +18,21 @@ public class Chest : MonoBehaviour
 
     private bool isOpened = false;
     private bool isPlayerInside = false;
+
+    void Awake()
+    {
+        if (PlayerAttackScript == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                PlayerAttackScript = player.GetComponent<PlayerAttack>();
+        }
+
+        if (MoneyScript == null)
+        {
+            MoneyScript = MoneyScript.Instance;
+        }
+    }
 
     void Start()
     {
@@ -94,6 +110,8 @@ public class Chest : MonoBehaviour
     // -----------------------
     // FUNCIONES MODULARES
     // -----------------------
+
+    //chest
     void OpenChest()
     {
         isOpened = true;
@@ -103,26 +121,50 @@ public class Chest : MonoBehaviour
         if (anim != null)
             anim.SetTrigger("Abrir");
 
-        // Spawn de objetos
-        Vector3 spawnBase = transform.position + Vector3.up * -0.8f;
-
-        if (moneyPrefab != null)
-            Instantiate(moneyPrefab, spawnBase + Vector3.left * 0.3f, Quaternion.identity);
-
-        if (cargadorPrefab != null)
-            Instantiate(cargadorPrefab, spawnBase + Vector3.right * 0.3f, Quaternion.identity);
+        // Iniciar coroutine para esperar a que la animación termine
+        StartCoroutine(SpawnLootAfterDelay(1f));  // Delay antes de alnzar la cosas
 
         // Desactivar interacción futura
         objectToShow?.SetActive(false);
         triggerZone.enabled = false;
-
     }
+
+    IEnumerator SpawnLootAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Vector3 spawnBase = transform.position + Vector3.up * -0.8f;
+
+        float spacing = 0.3f;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vector3 offset = Vector3.right * ((i - 1) * spacing); // Posiciones: -0.3, 0, +0.3
+
+            float rand = Random.value; // Número entre 0.0 y 1.0
+
+            if (rand <= 0.7f && moneyPrefab != null)
+            {
+                GameObject money = Instantiate(moneyPrefab, transform.position, Quaternion.identity);
+                money.transform.DOMove(spawnBase + offset, 0.5f).SetEase(Ease.OutBack);
+            }
+            else if (cargadorPrefab != null)
+            {
+                GameObject ammo = Instantiate(cargadorPrefab, transform.position, Quaternion.identity);
+                ammo.transform.DOMove(spawnBase + offset, 0.5f).SetEase(Ease.OutBack);
+            }
+        }
+    }
+
+    //pistol
     void GivePlayerPistol()
     {
         PlayerAttackScript.pistola = true;
         PlayerAttackScript.yaTienePistola = true;
         Destroy(gameObject);
     }
+
+    //cargadores
     void GivePlayerAmmo()
     {
         if (!PlayerAttackScript.pistola) return;
@@ -131,6 +173,9 @@ public class Chest : MonoBehaviour
         PlayerAttackScript.TextoTMPCargadores.text = PlayerAttackScript.cargadores.ToString();
         Destroy(gameObject);
     }
+
+
+    //money
     void GivePlayerMoney()
     {
         MoneyScript.Instance.AddRandomMoney();
