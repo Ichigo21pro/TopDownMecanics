@@ -34,6 +34,8 @@ public class PlayerAttack : MonoBehaviour
     public TMP_Text TextoTMPCargadores;
     private bool MostrarBalas=true;
 
+    [SerializeField] private Collider2D hitboxBloqueadora;
+
 
     void Start()
     {
@@ -56,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (pistola)
             {
+                if (ClickSobreHitboxBloqueadora()) return; // <- Detiene el disparo si se clickeó la hitbox
                 if (!isReloading)
                 {
                     if (balas > 0)
@@ -116,6 +119,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+
+    //ataque pistola
     void AttackPistola()
     {
         isAttackingPistol = true;
@@ -157,6 +162,17 @@ public class PlayerAttack : MonoBehaviour
 
         isReloading = false;
 
+    }
+
+    // htibox dodne no se puede disparar
+
+    private bool ClickSobreHitboxBloqueadora()
+    {
+        if (hitboxBloqueadora == null) return false;
+
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        return hitboxBloqueadora.OverlapPoint(mouseWorldPos);
     }
 
 
