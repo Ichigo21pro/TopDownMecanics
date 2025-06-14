@@ -17,18 +17,18 @@ public class PlayerAttack : MonoBehaviour
     private List<GameObject> enemiesInRange = new List<GameObject>();
     public Collider2D attackRangeCollider;
 
-    public bool isAttacking; // <- Este flag será leído por PlayerAnimations
-    public bool isAttackingPistol; // <- Este flag será leído por PlayerAnimations
+    [HideInInspector] public bool isAttacking; // <- Este flag será leído por PlayerAnimations
+    [HideInInspector] public bool isAttackingPistol; // <- Este flag será leído por PlayerAnimations
 
     [SerializeField] private Chest InteractObjectScript;
-    public bool pistola;
-    public bool yaTienePistola;
+    [HideInInspector] public bool pistola;
+    [HideInInspector] public bool yaTienePistola;
 
     public int balas = 25;
     public int cantidadCargador = 25;
     public int cargadores = 3;
-    public bool isReloading = false;
-    public float reloadTime = 0.35f; // Tiempo de recarga en segundos
+    [HideInInspector] public bool isReloading = false;
+    private float reloadTime = 0.35f; // Tiempo de recarga en segundos
 
     public TMP_Text TextoTMPBalas;
     public TMP_Text TextoTMPCargadores;

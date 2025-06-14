@@ -17,7 +17,7 @@ TagManager:
   - UI
   - Door
   - BlockBullet
-  - 
+  - Wall
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 792001031
     locked: 0

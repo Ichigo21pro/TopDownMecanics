@@ -1,30 +1,47 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CamaraFollow : MonoBehaviour
 {
-    public Transform target;           // El jugador
-    public float smoothSpeed = 0.125f; // Suavidad de movimiento
-    public Vector3 baseOffset = new Vector3(0, 0, -10f); // Offset básico (usualmente en Z para mantener la cámara)
-    public float lookAheadDistance = 2f; // Qué tanto se adelanta la cámara
+    [Header("Referencias")]
+    public Transform target;             // El jugador
+    public float smoothSpeed = 5f;       // Velocidad de suavizado
+    public float mouseOffsetAmount = 2f; // Qué tanto se adelanta hacia el mouse
 
-    void LateUpdate()
+    private Camera cam;
+
+    private void Start()
     {
-        // Obtener dirección del jugador hacia el cursor
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = (mouseWorldPos - target.position).normalized;
+        cam = Camera.main;
+    }
 
-        // Crear un offset dinámico hacia adelante
-        Vector3 dynamicOffset = new Vector3(direction.x, direction.y, 0) * lookAheadDistance;
+    private void FixedUpdate()
+    {
+        if (target == null || cam == null) return;
 
-        // Calcular la posición deseada con offset dinámico
-        Vector3 desiredPosition = target.position + baseOffset + dynamicOffset;
+        // Posición base que sigue al jugador
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
 
-        // Suavizar el movimiento
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        // Obtener la posición del mouse en el mundo
+        Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
 
-        // Mantener la posición Z de la cámara
-        transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, baseOffset.z);
+        // Dirección del jugador hacia el mouse
+        Vector3 directionToMouse = (mouseWorldPos - target.position).normalized;
+
+        // Desplazamiento hacia el mouse
+        Vector3 offset = directionToMouse * mouseOffsetAmount;
+
+        // Nueva posición deseada (jugador + desplazamiento hacia mouse)
+        Vector3 desiredPosition = targetPosition + new Vector3(offset.x, offset.y, 0);
+
+        // Suavizado
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.fixedDeltaTime);
+
+        // Asignar posición final
+        transform.position = smoothedPosition;
     }
 }

@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 131201077059355231}
   - component: {fileID: 1358843253872944884}
   - component: {fileID: 8043791190134154537}
+  - component: {fileID: 8665120926727653826}
   m_Layer: 6
   m_Name: PivotPuerta
   m_TagString: Interact
@@ -434,7 +435,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.8129444, y: -0.00000011175871}
+  m_Offset: {x: 0.81636184, y: -0.00000011175871}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -445,7 +446,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6607609, y: 0.18062212}
+  m_Size: {x: 1.6675957, y: 0.18062212}
   m_EdgeRadius: 0
 --- !u!233 &1358843253872944884
 HingeJoint2D:
@@ -460,10 +461,10 @@ HingeJoint2D:
   m_ConnectedRigidBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_BreakAction: 1
+  m_BreakAction: 0
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -0.01, y: -0.0023247958}
-  m_ConnectedAnchor: {x: -5.4348726, y: -14.92008}
+  m_Anchor: {x: -0.010000296, y: 0.0023999047}
+  m_ConnectedAnchor: {x: -5.4348726, y: -14.915355}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
@@ -487,6 +488,36 @@ MonoBehaviour:
   outlinePuerta: {fileID: 7944553640107207330}
   outlineMango: {fileID: 7619283111180807769}
   outlineMango1: {fileID: 3275531468486923707}
+--- !u!114 &8665120926727653826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749775959417344266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 0000000007fa342f
+  m_ShapePath:
+  - {x: -0.017436028, y: -0.0903101, z: 0}
+  - {x: -0.017436028, y: 0.09031105, z: 0}
+  - {x: 1.6501598, y: 0.09031105, z: 0}
+  - {x: 1.6501598, y: -0.0903101, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -118058
+  m_LocalBounds:
+    m_Center: {x: 0.8163619, y: 0.00000047683716, z: 0}
+    m_Extent: {x: 0.83379793, y: 0.09031057, z: 0}
 --- !u!1 &7944553640107207330
 GameObject:
   m_ObjectHideFlags: 0
