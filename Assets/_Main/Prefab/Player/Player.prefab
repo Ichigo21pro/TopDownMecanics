@@ -650,12 +650,22 @@ MonoBehaviour:
   - {fileID: 7315646321814934934}
   toggleKey: 32
   bateriaMaxima: 100
-  consumoPorSegundo: 1
+  consumoPorSegundo: 0.05
   bateriaActual: 0
   linternaActiva: 1
   bateriaCritica: 20
   parpadeoMin: 0.05
   parpadeoMax: 0.2
+  textoBateria: {fileID: 0}
+  barrasBateria:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  colorVerde: {r: 0, g: 1, b: 0, a: 1}
+  colorNaranja: {r: 1, g: 0.64, b: 0, a: 1}
+  colorRojo: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7613306839319202370
 GameObject:
   m_ObjectHideFlags: 0

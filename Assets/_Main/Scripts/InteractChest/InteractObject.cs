@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +12,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private string NameOpcion = null;
     [SerializeField] PlayerAttack PlayerAttackScript;
     [SerializeField] MoneyScript MoneyScript;
+    [SerializeField] private PlayerLinterna playerLinterna;
 
     public GameObject moneyPrefab;
     public GameObject cargadorPrefab;
@@ -32,6 +33,13 @@ public class Chest : MonoBehaviour
         {
             MoneyScript = MoneyScript.Instance;
         }
+
+        if (playerLinterna == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerLinterna = player.GetComponent<PlayerLinterna>();
+        }
     }
 
     void Start()
@@ -51,7 +59,7 @@ public class Chest : MonoBehaviour
     }
 
 
-    // Verifica si el jugador est· dentro del ·rea de interacciÛn
+    // Verifica si el jugador est√° dentro del √°rea de interacci√≥n
     void CheckPlayerInTrigger()
     {
         if (triggerZone == null) return;
@@ -80,7 +88,7 @@ public class Chest : MonoBehaviour
     }
 
 
-    // Maneja la acciÛn seg˙n el tipo de objeto
+    // Maneja la acci√≥n seg√∫n el tipo de objeto
     void HandleInteraction(string tipo)
     {
         if (!Input.GetKeyDown(KeyCode.E) || string.IsNullOrEmpty(tipo)) return;
@@ -103,6 +111,9 @@ public class Chest : MonoBehaviour
             case "Money":
                 GivePlayerMoney();
                 break;
+            case "Bateria":
+                GivePlayerBatery();
+                break;
         }
     }
 
@@ -116,15 +127,15 @@ public class Chest : MonoBehaviour
     {
         isOpened = true;
 
-        // AnimaciÛn
+        // Animaci√≥n
         Animator anim = GetComponent<Animator>();
         if (anim != null)
             anim.SetTrigger("Abrir");
 
-        // Iniciar coroutine para esperar a que la animaciÛn termine
+        // Iniciar coroutine para esperar a que la animaci√≥n termine
         StartCoroutine(SpawnLootAfterDelay(1f));  // Delay antes de alnzar la cosas
 
-        // Desactivar interacciÛn futura
+        // Desactivar interacci√≥n futura
         objectToShow?.SetActive(false);
         triggerZone.enabled = false;
     }
@@ -141,7 +152,7 @@ public class Chest : MonoBehaviour
         {
             Vector3 offset = Vector3.right * ((i - 1) * spacing); // Posiciones: -0.3, 0, +0.3
 
-            float rand = Random.value; // N˙mero entre 0.0 y 1.0
+            float rand = Random.value; // N√∫mero entre 0.0 y 1.0
 
             if (rand <= 0.7f && moneyPrefab != null)
             {
@@ -179,6 +190,32 @@ public class Chest : MonoBehaviour
     void GivePlayerMoney()
     {
         MoneyScript.Instance.AddRandomMoney();
+        Destroy(gameObject);
+    }
+
+    //bateria 
+
+    void GivePlayerBatery()
+    {
+        if (playerLinterna == null) return;
+
+        // ‚úÖ Si la bater√≠a ya est√° llena, no hacer nada
+        if (playerLinterna.bateriaActual >= playerLinterna.bateriaMaxima)
+            return;
+
+        // Recargar la bater√≠a al m√°ximo
+        playerLinterna.bateriaActual = playerLinterna.bateriaMaxima;
+
+        // Si estaba apagada, se enciende
+        if (!playerLinterna.linternaActiva)
+        {
+            playerLinterna.linternaActiva = true;
+        }
+
+        // Asegurarse de que las luces est√©n encendidas
+        playerLinterna.ActualizarEstadoLinternas(true);
+
+        // Destruir la bater√≠a recogida
         Destroy(gameObject);
     }
 }

@@ -81,7 +81,7 @@ public class PlayerLinterna : MonoBehaviour
         ActualizarBarrasBateria();
     }
 
-    void ActualizarEstadoLinternas(bool estado)
+    public void ActualizarEstadoLinternas(bool estado)
     {
         foreach (var luz in linternas)
         {
