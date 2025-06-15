@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 109435900081419283}
   - component: {fileID: 2415047701091131421}
   - component: {fileID: 3412533037392770042}
+  - component: {fileID: 8978390026596403483}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -632,6 +633,29 @@ MonoBehaviour:
   TextoTMPBalas: {fileID: 0}
   TextoTMPCargadores: {fileID: 0}
   hitboxBloqueadora: {fileID: 6832902105953205416}
+--- !u!114 &8978390026596403483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155032589911803191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7879d848ef964abe93345cd95c5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linternas:
+  - {fileID: 2242958757825290471}
+  - {fileID: 7315646321814934934}
+  toggleKey: 32
+  bateriaMaxima: 100
+  consumoPorSegundo: 1
+  bateriaActual: 0
+  linternaActiva: 1
+  bateriaCritica: 20
+  parpadeoMin: 0.05
+  parpadeoMax: 0.2
 --- !u!1 &7613306839319202370
 GameObject:
   m_ObjectHideFlags: 0

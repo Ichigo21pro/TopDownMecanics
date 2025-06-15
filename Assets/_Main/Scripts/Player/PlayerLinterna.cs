@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlayerLinterna : MonoBehaviour
 {
@@ -22,8 +24,16 @@ public class PlayerLinterna : MonoBehaviour
     public float parpadeoMin = 0.05f;
     public float parpadeoMax = 0.2f;
 
-    private Coroutine parpadeoCoroutine;
+    [Header("UI")]
+    public TextMeshProUGUI textoBateria;
 
+    private Coroutine parpadeoCoroutine;
+    [Header("UI de Batería Visual")]
+    public Image[] barrasBateria; // 5 imágenes (índice 0 = más llena, índice 4 = más vacía)
+
+    public Color colorVerde = Color.green;
+    public Color colorNaranja = new Color(1f, 0.64f, 0f); // naranja
+    public Color colorRojo = Color.red;
     void Start()
     {
         bateriaActual = bateriaMaxima;
@@ -66,6 +76,9 @@ public class PlayerLinterna : MonoBehaviour
                 parpadeoCoroutine = StartCoroutine(Parpadeo());
             }
         }
+
+        ActualizarTextoBateria();
+        ActualizarBarrasBateria();
     }
 
     void ActualizarEstadoLinternas(bool estado)
@@ -100,5 +113,44 @@ public class PlayerLinterna : MonoBehaviour
 
         ActualizarEstadoLinternas(true);
         parpadeoCoroutine = null;
+    }
+
+    void ActualizarTextoBateria()
+    {
+        if (textoBateria != null)
+        {
+            float porcentaje = (bateriaActual / bateriaMaxima) * 100f;
+
+            // Redondear al múltiplo de 25 más cercano
+            int porcentajeRedondeado = Mathf.RoundToInt(porcentaje / 25f) * 25;
+            porcentajeRedondeado = Mathf.Clamp(porcentajeRedondeado, 0, 100);
+
+            textoBateria.text = porcentajeRedondeado.ToString() + "%";
+        }
+    }
+
+    void ActualizarBarrasBateria()
+    {
+        if (barrasBateria == null || barrasBateria.Length == 0) return;
+
+        float porcentaje = bateriaActual / bateriaMaxima;
+        int barrasActivas = Mathf.CeilToInt(porcentaje * barrasBateria.Length);
+
+        for (int i = 0; i < barrasBateria.Length; i++)
+        {
+            bool activa = i < barrasActivas;
+            barrasBateria[i].enabled = activa;
+
+            // Cambiar color según cuántas quedan activas
+            if (activa)
+            {
+                if (barrasActivas <= 1)
+                    barrasBateria[i].color = colorRojo;
+                else if (barrasActivas <= 3)
+                    barrasBateria[i].color = colorNaranja;
+                else
+                    barrasBateria[i].color = colorVerde;
+            }
+        }
     }
 }
