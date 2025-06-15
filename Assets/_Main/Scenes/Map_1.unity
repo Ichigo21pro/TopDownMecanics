@@ -7934,6 +7934,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 334180944}
     m_Modifications:
+    - target: {fileID: 131201077059355231, guid: 182e14bc1a5bfdc419f55a3f6bbd30db, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5101672
+      objectReference: {fileID: 0}
+    - target: {fileID: 131201077059355231, guid: 182e14bc1a5bfdc419f55a3f6bbd30db, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.99821895
+      objectReference: {fileID: 0}
     - target: {fileID: 7749775959417344266, guid: 182e14bc1a5bfdc419f55a3f6bbd30db, type: 3}
       propertyPath: m_Name
       value: PivotPuerta3
