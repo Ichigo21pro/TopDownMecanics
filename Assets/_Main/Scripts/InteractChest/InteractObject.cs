@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Rendering.Universal;
 
 public class Chest : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class Chest : MonoBehaviour
 
     private bool isOpened = false;
     private bool isPlayerInside = false;
+
+    [Header("Referencias Interruptor")]
+    [SerializeField] private List<Light2D> lucesAControlar;
+    private bool lucesEncendidas = true; // Estado actual
 
     void Awake()
     {
@@ -116,6 +121,9 @@ public class Chest : MonoBehaviour
                 break;
             case "Bateria":
                 GivePlayerBatery();
+                break;
+            case "Interruptor":
+                GivePlayerInterruptor();
                 break;
         }
     }
@@ -222,6 +230,25 @@ public class Chest : MonoBehaviour
         playerLinterna.ActualizarEstadoLinternas(true);
 
         Destroy(gameObject);
+    }
+
+    //Interruptor
+
+    void GivePlayerInterruptor() 
+    {
+        if (lucesAControlar == null || lucesAControlar.Count == 0)
+            return;
+
+        lucesEncendidas = !lucesEncendidas;
+
+        foreach (var luz in lucesAControlar)
+        {
+            if (luz != null)
+                luz.enabled = lucesEncendidas;
+        }
+
+        // Si solo se debe usar una vez, destruir el interruptor:
+        // Destroy(gameObject);
     }
 }
 
