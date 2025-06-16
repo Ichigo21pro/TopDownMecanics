@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class Chest : MonoBehaviour
 {
+    [Header("Referencias a Scripts")]
     public GameObject objectToShow;           // Objeto que se va a mostrar/ocultar
     public Collider2D triggerZone;            // Zona de trigger definida manualmente
     public string playerTag = "Player";       // Tag del jugador (por defecto: "Player")
@@ -14,8 +15,10 @@ public class Chest : MonoBehaviour
     [SerializeField] MoneyScript MoneyScript;
     [SerializeField] private PlayerLinterna playerLinterna;
 
+    [Header("Referencias a Objetos")]
     public GameObject moneyPrefab;
     public GameObject cargadorPrefab;
+    public GameObject bateriaPrefab;
 
     private bool isOpened = false;
     private bool isPlayerInside = false;
@@ -145,19 +148,22 @@ public class Chest : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         Vector3 spawnBase = transform.position + Vector3.up * -0.8f;
-
         float spacing = 0.3f;
 
         for (int i = 0; i < 3; i++)
         {
-            Vector3 offset = Vector3.right * ((i - 1) * spacing); // Posiciones: -0.3, 0, +0.3
+            Vector3 offset = Vector3.right * ((i - 1) * spacing);
+            float rand = Random.value;
 
-            float rand = Random.value; // Número entre 0.0 y 1.0
-
-            if (rand <= 0.7f && moneyPrefab != null)
+            if (rand <= 0.6f && moneyPrefab != null)
             {
                 GameObject money = Instantiate(moneyPrefab, transform.position, Quaternion.identity);
                 money.transform.DOMove(spawnBase + offset, 0.5f).SetEase(Ease.OutBack);
+            }
+            else if (rand <= 0.8f && bateriaPrefab != null)
+            {
+                GameObject battery = Instantiate(bateriaPrefab, transform.position, Quaternion.identity);
+                battery.transform.DOMove(spawnBase + offset, 0.5f).SetEase(Ease.OutBack);
             }
             else if (cargadorPrefab != null)
             {
@@ -199,23 +205,22 @@ public class Chest : MonoBehaviour
     {
         if (playerLinterna == null) return;
 
-        // ✅ Si la batería ya está llena, no hacer nada
+        // Verificación adicional (opcional): evitar si el texto dice "100%"
+        if (playerLinterna.textoBateria != null && playerLinterna.textoBateria.text == "100%")
+            return;
+
         if (playerLinterna.bateriaActual >= playerLinterna.bateriaMaxima)
             return;
 
-        // Recargar la batería al máximo
         playerLinterna.bateriaActual = playerLinterna.bateriaMaxima;
 
-        // Si estaba apagada, se enciende
         if (!playerLinterna.linternaActiva)
         {
             playerLinterna.linternaActiva = true;
         }
 
-        // Asegurarse de que las luces estén encendidas
         playerLinterna.ActualizarEstadoLinternas(true);
 
-        // Destruir la batería recogida
         Destroy(gameObject);
     }
 }
