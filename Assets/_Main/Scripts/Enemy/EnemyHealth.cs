@@ -6,13 +6,17 @@ public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 100;      // Vida máxima
     [SerializeField] private int currentHealth;
+    [Header("Drop")]
+    [SerializeField] private GameObject pistolaPrefab;  // Asigna el prefab en el Inspector
+    [Range(0f, 1f)]
+    public float dropProbability = 0.2f; // 20% de probabilidad
+
 
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    // Método público para recibir daño
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -26,8 +30,12 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log($"{gameObject.name} ha muerto.");
-        // Aquí puedes poner animaciones, efectos, etc.
-        Destroy(gameObject);  // Destruye el enemigo
+        // Intentar dropear pistola con 20% de probabilidad
+        if (pistolaPrefab != null && Random.value <= dropProbability)
+        {
+            Instantiate(pistolaPrefab, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 }
