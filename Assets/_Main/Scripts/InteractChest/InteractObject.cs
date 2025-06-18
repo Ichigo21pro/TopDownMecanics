@@ -184,6 +184,10 @@ public class Chest : MonoBehaviour
     //pistol
     void GivePlayerPistol()
     {
+        if (PlayerAttackScript.pistola)
+        {
+            GivePlayerAmmo();
+        }
         PlayerAttackScript.pistola = true;
         PlayerAttackScript.yaTienePistola = true;
         Destroy(gameObject);
