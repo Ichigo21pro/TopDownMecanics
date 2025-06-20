@@ -18,16 +18,28 @@ public class EnemyAI : MonoBehaviour
     public float rotationSpeed = 1.5f;
     public float rotationTolerance = 2f; // en grados
 
+    [Header("Detecccion de Player")]
+    [SerializeField] private DetectarPlayer detector;
+
+
     private void Start()
     {
         animController = GetComponent<EnemyAnimation>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        detector = GetComponent<DetectarPlayer>();
     }
 
     private void Update()
     {
-        if (!isWaiting)
+        if (detector != null && detector.jugadorDetectado)
+        {
+            LookAtPlayer();
+            animController?.SetIsMoving(false);
+        }
+        else if (!isWaiting)
+        {
             Patrol();
+        }
     }
 
     void Patrol()
@@ -71,5 +83,19 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
         isWaiting = false;
+    }
+
+
+    // ha sido detectado el jugador :
+
+    void LookAtPlayer()
+    {
+        if (detector.player == null) return;
+
+        Vector2 direction = detector.player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }
