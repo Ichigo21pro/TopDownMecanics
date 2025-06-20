@@ -295,8 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  pistolaPrefab: {fileID: 0}
-  dropProbability: 0.2
+  pistolaPrefab: {fileID: 7195423835266076869, guid: 14a08f37b32f3d9458a480b288b2e5a2, type: 3}
+  dropProbability: 1
 --- !u!50 &5296387369394376958
 Rigidbody2D:
   serializedVersion: 4
@@ -405,13 +405,12 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   moveSpeed: 2
   reachDistance: 0.1
-  waitTime: 1
+  waitTime: 3
   rotationSpeed: 5
   rotationTolerance: 0.1
+  detector: {fileID: 0}
 --- !u!114 &5929644336287792991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,3 +442,4 @@ MonoBehaviour:
     m_Bits: 320
   visionRange: 8
   visionAngle: 60
+  jugadorDetectado: 0

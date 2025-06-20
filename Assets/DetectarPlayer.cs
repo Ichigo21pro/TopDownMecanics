@@ -50,13 +50,13 @@ public class DetectarPlayer : MonoBehaviour
                 if (hit.collider == null)
                 {
                     // Jugador dentro del cono de visión y sin obstáculos
-                    Debug.Log("Jugador detectado dentro del cono de visión");
+
                     jugadorDetectado = true;
                     //MoveTowardsPlayer();
                 }
                 else
                 {
-                    Debug.Log("Jugador bloqueado por: " + hit.collider.name);
+                    
                 }
 
                 // Debug visual
