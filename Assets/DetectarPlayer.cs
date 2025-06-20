@@ -8,15 +8,28 @@ public class DetectarPlayer : MonoBehaviour
     public LayerMask obstacleLayers;
     public float visionRange = 8f;
     public float visionAngle = 60f; // en grados
+
+    // varible para parar el movimiento del enemigo
+    [HideInInspector] public bool jugadorDetectado = false;
     void Start()
     {
         if (player == null)
         {
-            Debug.LogError("Player no asignado en " + gameObject.name);
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+            else
+            {
+                Debug.LogError("No se encontró un objeto con el tag 'Player'");
+            }
         }
     }
     void Update()
     {
+        jugadorDetectado = false; // Reset cada frame
+
         Vector2 directionToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
@@ -38,7 +51,8 @@ public class DetectarPlayer : MonoBehaviour
                 {
                     // Jugador dentro del cono de visión y sin obstáculos
                     Debug.Log("Jugador detectado dentro del cono de visión");
-                    MoveTowardsPlayer();
+                    jugadorDetectado = true;
+                    //MoveTowardsPlayer();
                 }
                 else
                 {

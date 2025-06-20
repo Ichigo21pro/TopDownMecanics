@@ -10,6 +10,7 @@ public class EnemyAnimation : MonoBehaviour
     [Header("Feet Animation (Optional)")]
     public Animator feetAnimator;
 
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
