@@ -20,8 +20,6 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida restante: {currentHealth}");
-
         if (currentHealth <= 0)
         {
             Die();

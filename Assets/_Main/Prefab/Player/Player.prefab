@@ -126,6 +126,7 @@ MonoBehaviour:
   stepInterval: 0.5
   footstepVolume: 0.8
   disparoClip: {fileID: 0}
+  regargaClip: {fileID: 0}
   cuchilloClip: {fileID: 0}
 --- !u!1 &2990169219799333767
 GameObject:
@@ -306,7 +307,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5118213, y: 0.40566468}
+  m_Offset: {x: 0.45503414, y: 0.34147072}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -317,7 +318,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0236435, y: 1.8113296}
+  m_Size: {x: 1.9100692, y: 1.6829417}
   m_EdgeRadius: 0
 --- !u!1 &6514446435259503651
 GameObject:
@@ -610,7 +611,7 @@ MonoBehaviour:
   damageKnife: 100
   bulletPrefab: {fileID: 3490541874956238311, guid: f0ae1591d7b8ad042b1847f1815c7445, type: 3}
   firePoint: {fileID: 5008825113099494445}
-  bulletSpeed: 40
+  bulletSpeed: 60
   attackRangeCollider: {fileID: 8720847823594602196}
   isAttacking: 0
   isAttackingPistol: 0
@@ -782,6 +783,7 @@ MonoBehaviour:
   stepInterval: 0.27
   footstepVolume: 0.05
   disparoClip: {fileID: 8300000, guid: 26819e6c7520cc64f82f5562914d59c8, type: 3}
+  regargaClip: {fileID: 8300000, guid: db0b6f1e1d16283498ae650646b55228, type: 3}
   cuchilloClip: {fileID: 8300000, guid: 73744cddd6599704796e98a01e1a6ab6, type: 3}
 --- !u!1 &7613306839319202370
 GameObject:
@@ -851,8 +853,8 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 77.658165
-  m_PointLightOuterAngle: 96.97245
+  m_PointLightInnerAngle: 54.76874
+  m_PointLightOuterAngle: 74.08302
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 67.59
   m_ShapeLightParametricSides: 5

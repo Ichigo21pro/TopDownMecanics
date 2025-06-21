@@ -31,14 +31,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (detector != null && detector.jugadorDetectado)
-        {
-            LookAtPlayer();
-            animController?.SetIsMoving(false);
-        }
-        else if (!isWaiting)
+        // Solo patrulla si NO se detectó el jugador
+        if (!detector.JugadorDetectado && !isWaiting)
         {
             Patrol();
+        }
+        else
+        {
+            animController?.SetIsMoving(false); // Detiene animación si no patrulla
         }
     }
 
@@ -86,16 +86,5 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    // ha sido detectado el jugador :
 
-    void LookAtPlayer()
-    {
-        if (detector.player == null) return;
-
-        Vector2 direction = detector.player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-    }
 }
