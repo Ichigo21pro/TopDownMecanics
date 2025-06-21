@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
         {
             Patrol();
         }
-        else
+        else if (isWaiting)
         {
             animController?.SetIsMoving(false); // Detiene animación si no patrulla
         }

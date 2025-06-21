@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    private Animator animator;
+    [SerializeField] public Animator animator;
     private SpriteRenderer spriteRenderer;
 
     [Header("Feet Animation (Optional)")]
