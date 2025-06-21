@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -36,15 +37,6 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private Collider2D hitboxBloqueadora;
 
-
-    void Start()
-    {
-
-        if (attackRangeCollider == null)
-        {
-            attackRangeCollider = GetComponentInChildren<Collider2D>();
-        }
-    }
 
     void Update()
     {
@@ -100,21 +92,23 @@ public class PlayerAttack : MonoBehaviour
     // ataque de cuchillo
     public void Attack()
     {
-        // Creamos una copia para evitar modificar la lista mientras la recorremos
-        foreach (GameObject enemy in new List<GameObject>(enemiesInRange))
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Ajusta el layer si es necesario
+        filter.useTriggers = true;
+
+        Collider2D[] results = new Collider2D[10]; // Puedes ajustar el tamaño según necesidad
+        int count = attackRangeCollider.OverlapCollider(filter, results);
+
+        for (int i = 0; i < count; i++)
         {
-            if (enemy != null)
+            Collider2D col = results[i];
+            if (col != null && col.CompareTag(enemyTag))
             {
-                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                EnemyHealth enemyHealth = col.GetComponentInParent<EnemyHealth>(); // <- importante: subir al padre si es hitbox
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(damageKnife);
-
                 }
-            }
-            else
-            {
-                enemiesInRange.Remove(enemy);
             }
         }
     }
@@ -168,6 +162,8 @@ public class PlayerAttack : MonoBehaviour
 
     private bool ClickSobreHitboxBloqueadora()
     {
+        
+
         if (hitboxBloqueadora == null) return false;
 
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
