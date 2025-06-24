@@ -4,87 +4,100 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Patrulla")]
     public Transform[] patrolPoints;
     public float moveSpeed = 2f;
     public float reachDistance = 0.1f;
-    public float waitTime = 0.5f;
+    public float waitTime = 1f;
+    public float rotationSpeed = 5f;
 
     private int currentPointIndex = 0;
-    private EnemyAnimation animController;
-    private SpriteRenderer spriteRenderer;
     private bool isWaiting = false;
-    [Header("Rotación")]
-    public float rotationSpeed = 1.5f;
-    public float rotationTolerance = 2f; // en grados
 
-    [Header("Detecccion de Player")]
-    [SerializeField] private DetectarPlayer detector;
+    private EnemyAnimation animController;
 
+    private Quaternion initialRotation;
+    private Quaternion targetWaitRotation;
+    private bool isRotatingDuringWait = false;
 
-    private void Start()
+    void Start()
     {
         animController = GetComponent<EnemyAnimation>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        detector = GetComponent<DetectarPlayer>();
     }
 
-    private void Update()
+    void Update()
     {
-        // Solo patrulla si NO se detectó el jugador
-        if (!detector.JugadorDetectado && !isWaiting)
+        if (!isWaiting)
         {
             Patrol();
         }
-        else if (isWaiting)
+        else
         {
-            animController?.SetIsMoving(false); // Detiene animación si no patrulla
+            animController?.SetIsMoving(false);
+            if (isRotatingDuringWait)
+            {
+                RotateDuringWait();
+            }
         }
     }
 
     void Patrol()
     {
         Transform target = patrolPoints[currentPointIndex];
-        Vector2 direction = target.position - transform.position;
+        Vector2 direction = (target.position - transform.position).normalized;
 
-        // Calcular el ángulo deseado y la rotación objetivo
+        // Rotar hacia el punto
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        // Rotar suavemente
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        // Mover hacia el punto
+        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
 
-        // Calcular diferencia angular
-        float angleDifference = Quaternion.Angle(transform.rotation, targetRotation);
+        animController?.SetIsMoving(true);
 
-        // Si está alineado (no mover hasta que gire lo suficiente)
-        if (angleDifference < rotationTolerance)
+        if (Vector2.Distance(transform.position, target.position) < reachDistance)
         {
-            // Mover hacia el punto
-            transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            animController?.SetIsMoving(true);
-
-            // Si llegó al punto
-            if (Vector2.Distance(transform.position, target.position) < reachDistance)
-            {
-                animController?.SetIsMoving(false);
-                StartCoroutine(WaitBeforeNextPoint());
-            }
-        }
-        else
-        {
-            animController?.SetIsMoving(false); // no se mueve mientras gira
+            animController?.SetIsMoving(false);
+            StartCoroutine(WaitBeforeNextPoint());
         }
     }
 
     IEnumerator WaitBeforeNextPoint()
     {
         isWaiting = true;
-        yield return new WaitForSeconds(waitTime);
+        isRotatingDuringWait = true;
+
+        initialRotation = transform.rotation;
+
+        // Giro aleatorio ±90 grados
+        float randomSign = Random.value < 0.5f ? 1f : -1f;
+        float giroGrados = 90f * randomSign;
+        targetWaitRotation = initialRotation * Quaternion.Euler(0, 0, giroGrados);
+
+        float rotationTime = 0.5f; // tiempo para girar suavemente
+        float elapsed = 0f;
+
+        while (elapsed < rotationTime)
+        {
+            transform.rotation = Quaternion.Slerp(initialRotation, targetWaitRotation, elapsed / rotationTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Asegurar rotación final exacta
+        transform.rotation = targetWaitRotation;
+
+        isRotatingDuringWait = false;
+
+        // Esperar el resto del tiempo después de girar
+        yield return new WaitForSeconds(waitTime - rotationTime);
+
         currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
         isWaiting = false;
     }
 
-
-
+    void RotateDuringWait()
+    {
+        // Esta función ya no es necesaria, se hizo dentro del Coroutine
+    }
 }
