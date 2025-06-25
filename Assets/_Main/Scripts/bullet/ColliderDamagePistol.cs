@@ -18,6 +18,15 @@ public class ColliderDamage : MonoBehaviour
             }
             Destroy(gameObject); // Destruye la bala al impactar
         }
+        if (collision.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.OnHitByBullet(); // Resta 1 vida
+            }
+            Destroy(gameObject);
+        }
         if (collision.CompareTag("Wall") || collision.CompareTag("Interact")  || collision.gameObject.layer == LayerMask.NameToLayer("BlockBullet"))
         {
             Destroy(gameObject);

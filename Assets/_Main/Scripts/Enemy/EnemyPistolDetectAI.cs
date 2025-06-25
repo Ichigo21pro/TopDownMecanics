@@ -17,12 +17,14 @@ public class EnemyAttackPistol : MonoBehaviour
 
     private bool estabaMoviendose = false; // Almacena el último estado
     private EnemyAnimation animController;
+    public float velocidadPersecucion = 4.0f; // ajusta según lo que necesites
 
     void Start()
     {
         detector = GetComponent<DetectarPlayer>();
         agent = GetComponent<NavMeshAgent>();
         animController = GetComponent<EnemyAnimation>();
+        agent.speed = velocidadPersecucion;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
