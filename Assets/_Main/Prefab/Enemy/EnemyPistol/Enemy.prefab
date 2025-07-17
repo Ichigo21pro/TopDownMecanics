@@ -297,7 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  pistolaPrefab: {fileID: 0}
+  pistolaPrefab: {fileID: 7195423835266076869, guid: 14a08f37b32f3d9458a480b288b2e5a2, type: 3}
   dropProbability: 1
 --- !u!61 &5554117063196111076
 BoxCollider2D:
